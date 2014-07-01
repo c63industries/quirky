@@ -8,6 +8,7 @@ namespace QRkey
 {
     public static class Program
     {
+        [STAThread]
         public static void Main(string[] arguments)
         {
             var form = new Form();
