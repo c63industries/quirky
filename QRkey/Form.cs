@@ -19,8 +19,8 @@ namespace QRkey
                 var menuItem = new ToolStripMenuItem("File");
                 Menustrip.Items.Add(menuItem);
                 {
-                    var subMenuItem1 = new ToolStripMenuItem("Open");
-                    subMenuItem1.Click += (object sender, System.EventArgs e) =>
+                    var subMenuItem = new ToolStripMenuItem("Open");
+                    subMenuItem.Click += (object sender, System.EventArgs e) =>
                     {
                         Stream myStream = null;
                         OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -39,10 +39,7 @@ namespace QRkey
                                     {
                                         XmlDocument doc = new XmlDocument();
                                         doc.Load(myStream);
-                                        foreach (XmlNode node in doc.DocumentElement.ChildNodes)
-                                        {
-                                            string text = node.InnerText;
-                                        }
+                                        Generator.XML = doc.DocumentElement;
                                     }
                                 }
                             }
@@ -52,12 +49,14 @@ namespace QRkey
                             }
                         }
                     };
-                    menuItem.DropDown.Items.Add(subMenuItem1);
+                    menuItem.DropDown.Items.Add(subMenuItem);
                 }
 
-                    var subMenuItem0 = new ToolStripMenuItem("Exit");
-                    subMenuItem0.Click += (sender, e) => Application.Exit();
-                    menuItem.DropDown.Items.Add(subMenuItem0);
+                {
+                    var subMenuItem = new ToolStripMenuItem("Exit");
+                    subMenuItem.Click += (sender, e) => Application.Exit();
+                    menuItem.DropDown.Items.Add(subMenuItem);
+                }
             }
 
             Controls.Add(Menustrip);
