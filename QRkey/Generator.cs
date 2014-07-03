@@ -10,10 +10,36 @@ namespace QRkey
     {
         public static void Generate()
         {
+            if (XML == null)
+            {
+                return;
+            }
+
+            if (!XML.HasChildNodes)
+            {
+                return;
+            }
+
+            foreach (XmlNode xmlNode in XML.ChildNodes)
+            {
+                Render(xmlNode);
+            }
         }
 
-        private static void Render()
+        private static void Render(XmlNode xmlNode)
         {
+            if (xmlNode == null)
+            {
+                return;
+            }
+            switch (xmlNode.Name.ToUpper())
+            {
+                case "IMAGE":
+                    break;
+                case "TEXT":
+                    break;
+            }
+
         }
 
         public static String[] Keys

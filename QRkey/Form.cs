@@ -93,6 +93,17 @@ namespace QRkey
                 }
             }
 
+            {
+                var menuItem = new ToolStripMenuItem("Actions");
+                Menustrip.Items.Add(menuItem);
+
+                {
+                    var subMenuItem = new ToolStripMenuItem("Generate");
+                    subMenuItem.Click += (sender, e) => Generator.Generate();
+                    menuItem.DropDown.Items.Add(subMenuItem);
+                }
+            }
+
             Controls.Add(Menustrip);
             Text = "QRkey";
         }
