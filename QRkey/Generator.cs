@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,33 +10,52 @@ namespace QRkey
 {
     class Generator
     {
-        public static void Generate()
+        public static Graphics Generate()
         {
             if (XML == null)
             {
-                return;
+                return null;
             }
 
             if (!XML.HasChildNodes)
             {
-                return;
+                return null;
             }
+
+            Bitmap bmp = new Bitmap(100, 100);
+            Graphics graphics = Graphics.FromImage(bmp);
 
             foreach (XmlNode xmlNode in XML.ChildNodes)
             {
-                Render(xmlNode);
+                Render(graphics, xmlNode);
             }
+            return null;
         }
 
-        private static void Render(XmlNode xmlNode)
+        private static void Render(Graphics graphics, XmlNode xmlNode)
         {
             if (xmlNode == null)
             {
                 return;
             }
 
-            var x = xmlNode.Attributes["x"];
-            var y = xmlNode.Attributes["y"];
+            int x = 0;
+            {
+                XmlAttribute xmlAttribute = xmlNode.Attributes["x"];
+                if (xmlAttribute != null)
+                {
+                    Int32.TryParse(xmlAttribute.Value, out x);
+                }
+            }
+            
+            int y = 0;
+            {
+                XmlAttribute xmlAttribute = xmlNode.Attributes["y"];
+                if (xmlAttribute != null)
+                {
+                    Int32.TryParse(xmlAttribute.Value, out y);
+                }
+            }
 
             switch (xmlNode.Name.ToUpper())
             {
@@ -52,7 +72,8 @@ namespace QRkey
                     }
                     if (File.Exists(file))
                     {
-                        return;
+                        Image newImage = Image.FromFile(file);
+                        graphics.DrawImage(newImage, x, y);
                     }
                     break;
                 case "TEXT":
