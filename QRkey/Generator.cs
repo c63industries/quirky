@@ -10,7 +10,13 @@ namespace QRkey
 {
     class Generator
     {
-        public static Graphics Generate()
+        public static string BasePath
+        {
+            get;
+            set;
+        }
+
+        public static Bitmap Generate()
         {
             if (XML == null)
             {
@@ -29,7 +35,7 @@ namespace QRkey
             {
                 Render(graphics, xmlNode);
             }
-            return null;
+            return bmp;
         }
 
         private static void Render(Graphics graphics, XmlNode xmlNode)
@@ -41,7 +47,7 @@ namespace QRkey
 
             int x = 0;
             {
-                XmlAttribute xmlAttribute = xmlNode.Attributes["x"];
+                XmlAttribute xmlAttribute = xmlNode.Attributes["X"];
                 if (xmlAttribute != null)
                 {
                     Int32.TryParse(xmlAttribute.Value, out x);
@@ -50,7 +56,7 @@ namespace QRkey
             
             int y = 0;
             {
-                XmlAttribute xmlAttribute = xmlNode.Attributes["y"];
+                XmlAttribute xmlAttribute = xmlNode.Attributes["Y"];
                 if (xmlAttribute != null)
                 {
                     Int32.TryParse(xmlAttribute.Value, out y);
@@ -60,7 +66,7 @@ namespace QRkey
             switch (xmlNode.Name.ToUpper())
             {
                 case "IMAGE":
-                    var xmlAttribute = xmlNode.Attributes["file"];
+                    var xmlAttribute = xmlNode.Attributes["FILE"];
                     if (xmlAttribute == null)
                     {
                         return;
@@ -70,6 +76,9 @@ namespace QRkey
                     {
                         return;
                     }
+
+                    file = Path.Combine(BasePath, file);
+
                     if (File.Exists(file))
                     {
                         Image newImage = Image.FromFile(file);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -74,6 +75,7 @@ namespace QRkey
                                         XmlDocument doc = new XmlDocument();
                                         doc.Load(myStream);
                                         Generator.XML = doc.DocumentElement;
+                                        Generator.BasePath = Path.GetDirectoryName(openFileDialog.FileName);
                                     }
                                 }
                             }
@@ -99,7 +101,7 @@ namespace QRkey
 
                 {
                     var subMenuItem = new ToolStripMenuItem("Generate");
-                    subMenuItem.Click += (sender, e) => Generator.Generate();
+                    subMenuItem.Click += (sender, e) => this.BackgroundImage = Generator.Generate();
                     menuItem.DropDown.Items.Add(subMenuItem);
                 }
             }
