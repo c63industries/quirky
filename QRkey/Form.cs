@@ -76,6 +76,7 @@ namespace QRkey
                                         doc.Load(myStream);
                                         Generator.XML = doc.DocumentElement;
                                         Generator.BasePath = Path.GetDirectoryName(openFileDialog.FileName);
+                                        //DrawStringPointF(null);
                                     }
                                 }
                             }

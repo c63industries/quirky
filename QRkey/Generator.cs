@@ -10,6 +10,7 @@ namespace QRkey
 {
     class Generator
     {
+
         public static string BasePath
         {
             get;
@@ -94,6 +95,10 @@ namespace QRkey
                     {
                         return;
                     }
+                    Font font = new Font("Arial", 16);
+                    SolidBrush brush = new SolidBrush(Color.Black);
+                    PointF point = new PointF(x, y);
+                    graphics.DrawString(innerText, font, brush, point);
                     break;
             }
 
