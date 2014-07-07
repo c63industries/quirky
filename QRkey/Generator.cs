@@ -29,12 +29,15 @@ namespace QRkey
             }
 
             Bitmap bmp = new Bitmap(100, 100);
-            Graphics graphics = Graphics.FromImage(bmp);
-
-            foreach (XmlNode xmlNode in XML.ChildNodes)
+            
+            using (Graphics graphics = Graphics.FromImage(bmp))
             {
-                Render(graphics, xmlNode);
+                foreach (XmlNode xmlNode in XML.ChildNodes)
+                {
+                    Render(graphics, xmlNode);
+                }
             }
+
             return bmp;
         }
 
