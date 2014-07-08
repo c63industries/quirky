@@ -95,7 +95,7 @@ namespace QRkey
                     {
                         return;
                     }
-                    Font font = new Font("Arial", 16);
+                    Font font = new Font("Arial", 12);
                     SolidBrush brush = new SolidBrush(Color.Black);
                     PointF point = new PointF(x, y);
                     graphics.DrawString(innerText, font, brush, point);
