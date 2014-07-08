@@ -11,6 +11,14 @@ namespace QRkey
 {
     public class Form : System.Windows.Forms.Form
     {
+        public static void Error(string error)
+        {
+            if (error != null)
+            {
+                MessageBox.Show(error);
+            }
+        }
+
         public Form()
             : base()
         {
@@ -46,7 +54,7 @@ namespace QRkey
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                                Error("Error: Could not read file from disk. Original error: " + ex.Message);
                             }
                         }
                     };
@@ -82,7 +90,7 @@ namespace QRkey
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                                Error("Error: Could not read file from disk. Original error: " + ex.Message);
                             }
                         }
                     };

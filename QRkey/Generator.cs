@@ -70,23 +70,25 @@ namespace QRkey
             switch (xmlNode.Name.ToUpper())
             {
                 case "IMAGE":
-                    var xmlAttribute = xmlNode.Attributes["FILE"];
-                    if (xmlAttribute == null)
                     {
-                        return;
-                    }
-                    string file = xmlAttribute.Value;
-                    if (String.IsNullOrWhiteSpace(file))
-                    {
-                        return;
-                    }
+                        XmlAttribute xmlAttribute = xmlNode.Attributes["FILE"];
+                        if (xmlAttribute == null)
+                        {
+                            return;
+                        }
+                        string file = xmlAttribute.Value;
+                        if (String.IsNullOrWhiteSpace(file))
+                        {
+                            return;
+                        }
 
-                    file = Path.Combine(BasePath, file);
+                        file = Path.Combine(BasePath, file);
 
-                    if (File.Exists(file))
-                    {
-                        Image newImage = Image.FromFile(file);
-                        graphics.DrawImage(newImage, x, y);
+                        if (File.Exists(file))
+                        {
+                            Image newImage = Image.FromFile(file);
+                            graphics.DrawImage(newImage, x, y);
+                        }
                     }
                     break;
                 case "TEXT":
@@ -95,8 +97,38 @@ namespace QRkey
                     {
                         return;
                     }
-                    Font font = new Font("Arial", 12);
-                    SolidBrush brush = new SolidBrush(Color.Black);
+
+                    string fontName = "Arial";
+                    {
+                        XmlAttribute xmlAttribute = xmlNode.Attributes["FONT"];
+
+                        if (xmlAttribute != null)
+                        {
+                            fontName = xmlAttribute.Value;
+                        }
+                    }
+
+                    float fontSize = 12;
+                    {
+                        XmlAttribute xmlAttribute = xmlNode.Attributes["SIZE"];
+
+                        if (xmlAttribute != null)
+                        {
+                            float.TryParse(xmlAttribute.Value, out fontSize);
+                        }
+                    }
+
+                    System.Drawing.Color brushColor = Color.Black;
+                    {
+                        XmlAttribute xmlAttribute = xmlNode.Attributes["COLOR"];
+
+                        if (xmlAttribute != null)
+                        {
+                            brushColor = Color.FromName(xmlAttribute.Value);
+                        }
+                    }
+                    Font font = new Font(fontName, fontSize);
+                    SolidBrush brush = new SolidBrush(brushColor);
                     PointF point = new PointF(x, y);
                     graphics.DrawString(innerText, font, brush, point);
                     break;
