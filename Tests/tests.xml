@@ -1,4 +1,4 @@
-<RENDER>
+<RENDER HEIGHT="200" WIDTH="200">
 	<IMAGE FILE="test.png" X="50" Y="50" />
 	<TEXT X="50" Y="50">Meow</TEXT>
 </RENDER>

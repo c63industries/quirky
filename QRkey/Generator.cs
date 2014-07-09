@@ -29,7 +29,25 @@ namespace QRkey
                 return null;
             }
 
-            Bitmap bmp = new Bitmap(100, 100);
+            int height = 1080;
+            {
+                XmlAttribute xmlAttribute = XML.Attributes["HEIGHT"];
+                if (xmlAttribute != null)
+                {
+                    Int32.TryParse(xmlAttribute.Value, out height);
+                }
+            }
+
+            int width = 1920;
+            {
+                XmlAttribute xmlAttribute = XML.Attributes["WIDTH"];
+                if (xmlAttribute != null)
+                {
+                    Int32.TryParse(xmlAttribute.Value, out width);
+                }
+            }
+
+            Bitmap bmp = new Bitmap(height, width);
             
             using (Graphics graphics = Graphics.FromImage(bmp))
             {
