@@ -32,6 +32,7 @@ namespace QRkey
                     var subMenuItem = new ToolStripMenuItem("Open Keys");
                     subMenuItem.Click += (object sender, System.EventArgs e) =>
                     {
+                        subMenuItem.Checked = true;
                         Stream myStream = null;
                         OpenFileDialog openFileDialog = new OpenFileDialog();
                         openFileDialog.InitialDirectory = "c:\\";
@@ -65,6 +66,7 @@ namespace QRkey
                     var subMenuItem = new ToolStripMenuItem("Open XML");
                     subMenuItem.Click += (object sender, System.EventArgs e) =>
                     {
+                        subMenuItem.Checked = true;
                         Stream myStream = null;
                         OpenFileDialog openFileDialog = new OpenFileDialog();
                         openFileDialog.InitialDirectory = "c:\\";
@@ -84,7 +86,8 @@ namespace QRkey
                                         doc.Load(myStream);
                                         Generator.XML = doc.DocumentElement;
                                         Generator.BasePath = Path.GetDirectoryName(openFileDialog.FileName);
-                                        //DrawStringPointF(null);
+                                        this.BackgroundImage = Generator.Generate();
+                                        this.BackgroundImageLayout = ImageLayout.Center;
                                     }
                                 }
                             }
