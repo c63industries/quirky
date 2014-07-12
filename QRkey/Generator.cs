@@ -17,7 +17,7 @@ namespace QRkey
             set;
         }
 
-        public static Bitmap Generate()
+        public static Bitmap Generate(int key = -1)
         {
             if (XML == null)
             {
@@ -27,6 +27,14 @@ namespace QRkey
             if (!XML.HasChildNodes)
             {
                 return null;
+            }
+
+            if (key >= 0)
+            {
+                if (Keys == null)
+                {
+                    return null;
+                }
             }
 
             int height = 1080;
@@ -53,14 +61,14 @@ namespace QRkey
             {
                 foreach (XmlNode xmlNode in XML.ChildNodes)
                 {
-                    Render(graphics, xmlNode);
+                    Render(graphics, key, xmlNode);
                 }
             }
 
             return bmp;
         }
 
-        private static void Render(Graphics graphics, XmlNode xmlNode)
+        private static void Render(Graphics graphics, int key, XmlNode xmlNode)
         {
             if (xmlNode == null)
             {
@@ -135,6 +143,13 @@ namespace QRkey
                             float.TryParse(xmlAttribute.Value, out fontSize);
                         }
                     }
+
+                    string keyValue = "K-E-Y";
+                    if (key >= 0)
+                    {
+                        keyValue = Keys[key];
+                    }
+                    innerText = innerText.Replace("$KEY", keyValue);
 
                     System.Drawing.Color brushColor = Color.Black;
                     {
