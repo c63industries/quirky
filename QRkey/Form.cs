@@ -116,6 +116,11 @@ namespace QRkey
                     subMenuItem.Click += (sender, e) => this.BackgroundImage = Generator.Generate();
                     menuItem.DropDown.Items.Add(subMenuItem);
                 }
+                {
+                    var subMenuItem = new ToolStripMenuItem("Execute");
+                    subMenuItem.Click += (sender, e) => Generator.Execute();
+                    menuItem.DropDown.Items.Add(subMenuItem);
+                }
             }
 
             Controls.Add(Menustrip);

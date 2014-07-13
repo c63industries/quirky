@@ -17,6 +17,37 @@ namespace QRkey
             set;
         }
 
+        public static void Execute()
+        {
+            if (XML == null)
+            {
+                return;
+            }
+
+            if (Keys == null)
+            {
+                return;
+            }
+
+            if (Keys.Length <= 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i <= Keys.Length; i++)
+            {
+                Bitmap bitmap = Generate(i);
+
+                if (bitmap == null)
+                {
+                    continue;
+                }
+
+                bitmap.Save(string.Format("{0}/{1}.{2}", BasePath, i, "png"), System.Drawing.Imaging.ImageFormat.Png);
+                bitmap.Dispose();
+            }
+        }
+
         public static Bitmap Generate(int key = -1)
         {
             if (XML == null)
