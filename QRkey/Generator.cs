@@ -43,7 +43,7 @@ namespace QRkey
                     continue;
                 }
 
-                bitmap.Save(string.Format("{0}{1}.{2}", BasePath, i, "png"), System.Drawing.Imaging.ImageFormat.Png);
+                bitmap.Save(string.Format("{0}/{1}.{2}", BasePath, i, "png"), System.Drawing.Imaging.ImageFormat.Png);
                 bitmap.Dispose();
             }
         }

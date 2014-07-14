@@ -50,6 +50,7 @@ namespace QRkey
                                     {
                                         string path = openFileDialog.FileName;
                                         string[] readText = File.ReadAllLines(path);
+                                        Generator.Keys = readText;
                                     }
                                 }
                             }
