@@ -7,7 +7,9 @@ Here's how Quirky works right now:
 Put your keys in a text file with a format that's something like this:
 
 aaaaa
+
 bbbbb
+
 ccccc
 
 Add an XML file for rendering the image, in a format like this:
