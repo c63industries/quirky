@@ -34,7 +34,7 @@ namespace QRkey
                 return;
             }
 
-            for (int i = 0; i <= Keys.Length; i++)
+            for (int i = 0; i < Keys.Length; i++)
             {
                 Bitmap bitmap = Generate(i);
 
