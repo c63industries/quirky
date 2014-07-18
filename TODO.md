@@ -1,3 +1,4 @@
 - Add a successful completion MessageBox
 - Change the menu checkboxes to only be checked if a file is successfully loaded
 - Make the process more streamlined and intuitive (make readme unnecessary)
+- Add QR code support.
