@@ -35,7 +35,6 @@ namespace C63.Quirky
                         subMenuItem.Checked = true;
                         Stream myStream = null;
                         OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.InitialDirectory = "c:\\";
                         openFileDialog.Filter = "csv files (*.csv)|*.csv|txt files (*.txt)|*txt";
                         openFileDialog.FilterIndex = 2;
                         openFileDialog.RestoreDirectory = true;
@@ -70,7 +69,6 @@ namespace C63.Quirky
                         subMenuItem.Checked = true;
                         Stream myStream = null;
                         OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.InitialDirectory = "c:\\";
                         openFileDialog.Filter = "xml files (*.xml)|*.xml";
                         openFileDialog.FilterIndex = 2;
                         openFileDialog.RestoreDirectory = true;
