@@ -1,4 +1,5 @@
 <RENDER HEIGHT="200" WIDTH="200">
 	<IMAGE FILE="test.png" X="50" Y="50" />
 	<TEXT X="50" Y="50">Meow $KEY</TEXT>
+	<QRCODE X="100" Y="100">$KEY</QRCODE>
 </RENDER>

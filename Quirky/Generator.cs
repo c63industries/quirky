@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using ZXing;
 
 namespace C63.Quirky
 {
@@ -147,53 +148,88 @@ namespace C63.Quirky
                         }
                     }
                     break;
+
+                case "QRCODE":
+                    {
+                        var innerText = xmlNode.InnerText;
+
+                        if (String.IsNullOrWhiteSpace(innerText))
+                        {
+                            return;
+                        }
+
+                        string keyValue = "K-E-Y";
+
+                        if (key >= 0)
+                        {
+                            keyValue = Keys[key];
+                        }
+
+                        innerText = innerText.Replace("$KEY", keyValue);
+
+                        var barcodeWriter = new BarcodeWriter
+                        {
+                            Format = BarcodeFormat.QR_CODE,
+                        };
+
+                        var bitmap = barcodeWriter.Write(innerText);
+
+                        graphics.DrawImage(bitmap, x, y);
+                    }
+
+                    break;
+
                 case "TEXT":
-                    var innerText = xmlNode.InnerText;
-                    if (String.IsNullOrWhiteSpace(innerText))
-                    {
-                        return;
-                    }
 
-                    string fontName = "Arial";
                     {
-                        XmlAttribute xmlAttribute = xmlNode.Attributes["FONT"];
-
-                        if (xmlAttribute != null)
+                        var innerText = xmlNode.InnerText;
+                        if (String.IsNullOrWhiteSpace(innerText))
                         {
-                            fontName = xmlAttribute.Value;
+                            return;
                         }
-                    }
 
-                    float fontSize = 12;
-                    {
-                        XmlAttribute xmlAttribute = xmlNode.Attributes["SIZE"];
-
-                        if (xmlAttribute != null)
+                        string fontName = "Arial";
                         {
-                            float.TryParse(xmlAttribute.Value, out fontSize);
+                            XmlAttribute xmlAttribute = xmlNode.Attributes["FONT"];
+
+                            if (xmlAttribute != null)
+                            {
+                                fontName = xmlAttribute.Value;
+                            }
                         }
-                    }
 
-                    string keyValue = "K-E-Y";
-                    if (key >= 0)
-                    {
-                        keyValue = Keys[key];
-                    }
-                    innerText = innerText.Replace("$KEY", keyValue);
-
-                    System.Drawing.Color brushColor = Color.Black;
-                    {
-                        XmlAttribute xmlAttribute = xmlNode.Attributes["COLOR"];
-
-                        if (xmlAttribute != null)
+                        float fontSize = 12;
                         {
-                            brushColor = Color.FromName(xmlAttribute.Value);
+                            XmlAttribute xmlAttribute = xmlNode.Attributes["SIZE"];
+
+                            if (xmlAttribute != null)
+                            {
+                                float.TryParse(xmlAttribute.Value, out fontSize);
+                            }
                         }
+
+                        string keyValue = "K-E-Y";
+                        if (key >= 0)
+                        {
+                            keyValue = Keys[key];
+                        }
+                        innerText = innerText.Replace("$KEY", keyValue);
+
+                        System.Drawing.Color brushColor = Color.Black;
+                        {
+                            XmlAttribute xmlAttribute = xmlNode.Attributes["COLOR"];
+
+                            if (xmlAttribute != null)
+                            {
+                                brushColor = Color.FromName(xmlAttribute.Value);
+                            }
+                        }
+                        Font font = new Font(fontName, fontSize);
+                        SolidBrush brush = new SolidBrush(brushColor);
+                        PointF point = new PointF(x, y);
+                        graphics.DrawString(innerText, font, brush, point);
                     }
-                    Font font = new Font(fontName, fontSize);
-                    SolidBrush brush = new SolidBrush(brushColor);
-                    PointF point = new PointF(x, y);
-                    graphics.DrawString(innerText, font, brush, point);
+
                     break;
             }
 
